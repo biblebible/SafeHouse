@@ -1,0 +1,1122 @@
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap');
+
+html{font-size: 14px;  scroll-behavior: smooth;}
+body{margin: 0px; font-family: 'IBM Plex Sans KR'; cursor: url('img/mou.png') , auto !important ; }
+body:hover, body:active {
+  cursor: url('img/cursor.png'), auto;
+}
+
+#menu{ height: 70px; position:fixed; top: 0px;   margin: 0px 0px; width: 100%; /* 메뉴가 페이지 전체 너비를 차지하도록 설정 */ 
+  z-index: 10; /* 메뉴가 다른 요소들보다 위에 표시되도록 설정 */    display: flex;
+  align-items: center;}
+#menu ul{display: flex;  justify-content: flex-end; align-items: center; padding: 0px;}
+#menu ul li{list-style: none; padding: 13px 30px; user-select: none;}
+#menu a {
+    color: rgb(231, 231, 231);
+    text-decoration: none; /* 링크 밑줄 없애기 */
+  }
+
+#menu a:hover {
+  color: rgb(0, 255, 153);
+}
+
+header div{height: 100%;}
+header p{padding-top:100%;}
+
+.logo {
+  width: 150px; /* 로고 크기 조절 */
+  height: auto;
+  margin-right: -170px; /* 로고와 메뉴 사이의 간격 */
+  margin-left: 40px; 
+}
+
+
+@property --fold {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+.folded-map {
+  --fold: .6; /* between 0 and 1; */
+  width: 100vmin;
+  display: grid;
+  perspective: 1900px;
+  transition: --fold 1s linear;
+  margin: auto; /* 가로 방향 중앙 정렬 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 가로 및 세로 방향 중앙 정렬 */
+  z-index: 1;
+  background-position: center;
+
+  
+  :is(*) { transform-style: preserve-3d }
+  :is(img, .fold) { grid-area: 1/1 }
+  :is(img) { width: 100%; visibility: hidden }
+  :is(.fold, .fold > *) { display: grid; grid-auto-flow: column }
+  :is(.fold) { --angle: calc(90deg * var(--fold)); rotate: 1 0 0 var(--angle) }
+  :is(.left) { transform-origin: right; rotate: 0 1 0 calc(var(--angle) * 1); --am: -2 }
+  :is(.right) { transform-origin: left; rotate: 0 1 0 calc(var(--angle) * -1); --am: 2 }
+  :is(.out) { rotate: 0 1 0 calc(var(--angle) * var(--am)) }
+  :is(.left > .out){ --bp: -0%; --op: .5 }
+  :is(.left > .in){ --bp: -100%; --op: .125 }
+  :is(.right > .in){ --bp: -200%; --op: .5 }
+  :is(.right > .out){ --bp: -300%; --op: 0 }
+  :is(.in, .out) { 
+    transform-origin: inherit; 
+    background: 
+      linear-gradient(hsl(0 0% 0% / calc(var(--fold) * var(--op))) 0 0), 
+      var(--bg) var(--bp) / 400%;
+  }
+}
+
+.folded-map:hover {
+  --fold: 0; /* 펼쳐지는 효과 */
+  width: 100vw; /* 화면 가로 전체 */
+  height: 100vh; /* 화면 세로 전체 */
+  top: 0;
+  left: 0;
+  transform: none; /* 호버 시 중앙 위치 조정 해제 */
+}
+
+
+html, body { height: 100% }
+body { margin: 0; display: grid; place-items: center; background-color: hsl(0 0% 95%) }
+[data-preview=true] .folded-map { animation: preview 1.5s linear alternate infinite }
+@keyframes preview { from { --fold: .6 } to { --fold: 0 } }
+
+
+.bg-img1 {
+    background-color: #333;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .bg-img2 {
+    background-image: url(img/2.png);
+    background-attachment: fixed;
+    background-size:cover;
+    background-position:center;
+  }
+
+  .bg-img3 {
+    background-image: url(img/3.png);
+    background-attachment: fixed;
+    background-size:cover;
+    background-position:center;
+  }
+
+  .bg-img4 {
+    background-image: url(img/4.png);
+    background-attachment: fixed;
+    background-size:cover;
+    background-position:center;
+  }
+
+  .bg-img5 {
+    background-image: url(img/5.png);
+    background-attachment: fixed;
+    background-size:cover;
+    background-position:center;
+  }
+
+  .bg-img6 {
+    background-image: url(img/6.png);
+    background-attachment: fixed;
+    background-size:cover;
+    background-position:top;
+  }
+
+.container {
+    height: 100vh;
+    scroll-snap-type: y mandatory; /* 세로 방향 스크롤 스냅 */
+    overflow-y: scroll;
+  }
+.section {
+    scroll-snap-align: start; /* 섹션이 시작 지점에 맞춰짐 */
+    height: 100vh; /* 각 섹션이 화면 전체를 차지 */
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+  }
+/* -----------------------------------------------------------------------*/
+
+
+.car { 
+    width: 60px;
+    height: 90px;
+    display: block;
+    background-image: url(img/car.png); /* 여기에 원하는 이미지 경로 설정 */
+    background-size: cover; /* 이미지가 요소 크기에 맞게 조정 */
+    background-repeat: no-repeat; /* 이미지 반복하지 않기 */
+    position:fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%); /* 중앙 정렬 */  
+    /* 애니메이션 설정 */
+    animation: scroll 2s infinite;
+}
+
+  /* 휠 움직임 애니메이션 */
+@keyframes scroll {
+    0% {
+      top: 10px;
+      opacity: 1;
+    }
+    50% {
+      top: 20px;
+    }
+    100% {
+      top: 10px;
+      opacity: 1;
+    }
+}
+
+.shadow {
+  filter: drop-shadow(0px 30px rgb(255, 250, 99));
+  animation: blink-shadow 1s infinite; /* 깜박이는 애니메이션 추가 */
+}
+
+@keyframes blink-shadow {
+  0%, 100% {
+    filter: drop-shadow(0px 30px 20px rgb(255, 250, 99)); /* 그림자가 있는 상태 */
+  }
+  50% {
+    filter: drop-shadow(0px 10px 10px rgba(255, 250, 99, 0)); /* 그림자가 없는 상태 */
+  }
+}
+
+
+/* -----------------------------------------------------------------------*/
+/* 전체 마우스 모양 설정 */
+.mouse {
+  position: fixed; /* 화면 기준으로 위치 설정 */
+  top: 40%; /* 세로 중앙 */
+  left: 50%; /* 가로 중앙 */
+  transform: translate(-50%, -50%); /* 요소의 중심이 정확히 화면 중앙에 오도록 조정 */
+  z-index: 9999; /* 가장 위쪽 레이어에 배치 */
+}
+
+  
+  /* 마우스 휠 */
+.wheel {
+    width: 60px;
+    height: 90px;
+    background-image: url(img/car.png); /* 여기에 원하는 이미지 경로 설정 */
+    background-size: cover; /* 이미지가 요소 크기에 맞게 조정 */
+    background-repeat: no-repeat; /* 이미지 반복하지 않기 */
+    position: relative;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%); /* 중앙 정렬 */  
+    /* 애니메이션 설정 */
+    animation: scroll 2s infinite;
+    z-index: 9999;
+}
+
+  
+  /* 휠 움직임 애니메이션 */
+@keyframes scroll {
+    0% {
+      top: 10px;
+      opacity: 1;
+    }
+    50% {
+      top: 20px;
+      opacity: 1;
+    }
+    100% {
+      top: 10px;
+      opacity: 1;
+    }
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid rgb(255, 255, 255); /* 위쪽에만 색상 */
+    margin-top: -70px; /* 마우스 아이콘 아래 공간 */
+    position: relative;
+    top: 100px; /* 마우스 하단에서 약간 떨어져 배치 */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+  }
+/* -----------------------------------------------------------------------*/
+
+.row{
+    width: 755px;
+    display: flex;
+    margin: auto;
+    padding: 0px 0px;
+    margin-bottom: 0px;
+}
+
+.col-1{width: 16.66%; padding: 0px 5px;}
+.col-2{width: 33.33%; padding: 0px 5px;}
+.col-3{width: 50%; padding: 0px 5px;}
+.col-4{width: 66.66%; padding: 0px 5px;}
+.col-5{width: 83.32%; padding: 0px 5px;}
+.col-6{width: 100%; padding: 0px 5px;}
+
+.h-200{height: 200px;}
+.h-300{height: 300px;}
+.h-400{height: 400px;}
+.h-500{height: 500px;}
+
+.bg-white{background-color: white;}
+.bg-gray{background-color: #999;}
+.bg-blue{background-color:steelblue;}
+.bg-green{background-color: yellowgreen;}
+.bg-none{background:none;}
+
+.text-white{color: white;}
+.text-gray{color: #333;}
+
+.text-center{text-align: center;}
+.text-left{text-align: left;}
+.text-right{text-align: right;}
+
+.section-1 { /* 여기에 해당하는 섹션 클래스명으로 변경하세요 */
+  position: relative; /* 위치 기준을 정의합니다 */
+  height: 100vh; /* 선택사항: 높이를 설정하여 명확하게 만듭니다 */
+  display: flex; /* Flexbox를 사용하여 자식 요소를 배치 */
+  flex-direction: column; /* 자식 요소를 세로 방향으로 정렬 */
+}
+
+.section-2 { /* 여기에 해당하는 섹션 클래스명으로 변경하세요 */
+  position: left; /* 위치 기준을 정의합니다 */
+  height: 100vh; /* 선택사항: 높이를 설정하여 명확하게 만듭니다 */
+  display: flex; /* Flexbox를 사용하여 자식 요소를 배치 */
+}
+
+.text {
+  margin-top: 460px;
+  margin-left: 35%;
+  text-align: center;
+  color: rgb(0, 255, 153);
+  padding: 10px;
+  font-weight: 700 !important ;
+  font-size: 30px;
+  border-radius: 5px;
+  z-index: 3;
+}
+
+.text11 {
+  margin-top: 550px;
+  margin-left: -350px;
+  font-weight: 700 !important ;
+  font-size: 19px;
+  color: rgb(0, 255, 153);
+  z-index: 3;
+}
+
+
+.text-main-title {
+  margin: 70px 120px;
+  display: fixed;     /* 내용 정렬을 위한 flex 표시 */
+  font-weight: 700 !important ; font-size: 2.2rem;
+  color: rgb(238, 238, 238);
+}
+
+
+.text-sub-title1{   
+  margin: 200px 120px;
+  font-weight: 600; font-size: 1.6rem;
+  color: rgb(210, 210, 210);
+  z-index: 1;
+}
+
+
+.text-sub-title2{   
+  text-align: right; /* 우측 정렬 */
+  margin-right: 120px; /* 우측 여백 */
+  margin-top: -170px; /* 필요에 따라 위쪽 여백을 음수로 설정하여 올리기 */
+  font-weight: 600; 
+  font-size: 1.6rem;
+  color: rgb(210, 210, 210);
+  transition: 0.4s;
+}
+
+.text-sub-title3{   
+  margin: -50px 120px;
+  font-weight: 400; font-size: 1.4rem;
+  color: rgb(210, 210, 210);
+}
+  
+.text-normal1{
+  display: flex;
+  color: rgb(210, 210, 210);
+  margin: 15px 20px;
+}
+
+.text-normal1:hover {
+  color: rgb(0, 255, 153);
+}
+
+.text-footer{font-weight: 500; font-size: 1.2rem;}
+.text-menu{font-weight: 800 !important; font-size: 1.0rem; 
+  margin: 10px -70px;
+}
+
+
+.img-fit{width: 100%;}
+.img-border{border:1px solid #333; box-sizing: border-box;}
+
+
+footer p{padding: 30px 5px;}
+#footer{margin-bottom: 0px;}
+
+
+.cards-list {
+  z-index: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card {
+  text-decoration-line: none;
+  width: 380px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: -5px 5px 5px 5px rgba(0,0,0,0.25), 
+  -5px 5px 10px 10px rgba(0,0,0,0.22);
+  cursor: pointer;
+  transition: 0.4s;
+  margin-left: 120px;
+  margin-right: 120px;
+  margin-bottom: 50px
+}
+
+.cardle {
+  text-decoration-line: none;
+  width: 380px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: -5px 5px 5px 5px rgba(0,0,0,0.25), 
+  -5px 5px 10px 10px rgba(0,0,0,0.22);
+  cursor: pointer;
+  transition: 0.4s;
+  margin-left: 120px;
+  margin-right: 120px;
+  margin-bottom: 50px;
+}
+
+.card .card_image {
+  width: inherit;
+  height: inherit;
+  border-radius: 10px;
+}
+
+.card .card_image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.card .card_title {
+  text-align: center;
+  color: rgb(255, 255, 255);
+  text-decoration-line: none;
+  border-radius: 0px 0px 40px 40px;
+  font-weight: 400;
+  font-size: 1.0rem;
+  margin-top: auto;
+  height: 20px;
+}
+
+.cardle .card_image {
+  width: inherit;
+  height: inherit;
+  border-radius: 10px;
+}
+
+.cardle .card_image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.cardle .card_title {
+  text-align: center;
+  color: rgb(255, 255, 255);
+  text-decoration-line: none;
+  border-radius: 0px 0px 40px 40px;
+  font-weight: 400;
+  font-size: 1.0rem;
+  margin-top: auto;
+  height: 20px;
+}
+
+.card:hover {
+  transform: scale(0.9, 0.9);
+  box-shadow: -4px 4px 8px rgb(114, 131, 102), 4px -4px 8px rgb(114, 131, 102); 
+}
+
+.cardle:hover {
+  transform: scale(0.9, 0.9);
+  box-shadow: -4px 4px 8px rgb(114, 131, 102), 4px -4px 8px rgb(114, 131, 102); 
+}
+
+@media all and (max-width: 500px) {
+  .card-list {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+}
+
+.text-box1 {
+  max-width: 27%; /* 화면 너비의 절반으로 제한 */
+  margin: -170px 120px; /* 가운데 정렬 */
+  padding: 10px;
+  box-shadow: -4px -4px 8px rgb(114, 131, 102), 4px 4px 8px rgb(114, 131, 102); /* 그림자 효과 */
+  font-weight: 500 !important ;
+  font-size: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.499);
+  border-radius: 5px;
+  transition: 0.4s;
+  z-index: 2;
+}
+
+.text-box1:hover {
+  background-color: black;
+  transform: scale(1.2, 1.2);
+}
+
+/* 반응형: 작은 화면에서 너비 90%로 조정 */
+@media (min-width: 10px) {
+.text-box1 {
+    font-size: 0.9rem;
+}
+}
+
+@media (min-width: 1250px) {
+.text-box1 {
+    font-size: 1.0rem;
+}
+}
+
+.text-box2 {
+  max-width: 27%; /* 화면 너비의 절반으로 제한 */
+  margin: 10px 120px 50px auto; /* 위쪽과 아래쪽 여백은 50px, 왼쪽 여백은 자동으로 설정하여 오른쪽으로 이동 */
+  padding: 10px;
+  box-shadow: -4px 4px 8px rgb(114, 131, 102), 4px -4px 8px rgb(114, 131, 102); 
+  font-weight: 500 !important;
+  text-align: left; /* 텍스트는 기본적으로 왼쪽 정렬 */
+  background-color: rgba(0, 0, 0, 0.499);
+  border-radius: 5px;
+  transition: 0.4s;
+  z-index: 1;
+}
+
+.text-box2:hover {
+  background-color: black;
+  transform: scale(1.2, 1.2);
+}
+
+/* 반응형: 작은 화면에서 너비 90%로 조정 */
+@media (max-width: 10px) {
+  .text-box2 {
+      max-width: 90%;
+  }
+}
+
+@media (min-width: 10px) {
+.text-box2 {
+    font-size: 0.9rem;
+}
+}
+
+@media (min-width: 1250px) {
+.text-box2 {
+    font-size: 1.0rem;
+}
+}
+
+.img-box1 {
+  max-width: 25%; /* 화면 너비의 절반으로 제한 */
+  box-shadow: -4px 4px 8px rgb(114, 131, 102), 4px -4px 8px rgb(114, 131, 102); 
+  margin: -230px 180px 200px auto; /* 위쪽과 아래쪽 여백은 50px, 왼쪽 여백은 자동으로 설정하여 오른쪽으로 이동 */
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.615);
+  border-radius: 5px;
+  transition: 0.4s;
+}
+
+.img-box1:hover {
+  background-color: black;
+  transform: scale(1.3, 1.3);
+}
+
+
+.img-pin1 {
+  margin: 300px 160px; /* 위쪽과 아래쪽 여백은 50px, 왼쪽 여백은 자동으로 설정하여 오른쪽으로 이동 */
+  filter: drop-shadow(5px 5px 2px rgba(39, 81, 54, 0.541));
+  transition: 0.4s;
+}
+
+.img-pin11 {
+  filter: drop-shadow(5px 5px 2px rgba(39, 81, 54, 0.541));
+  transition: 0.4s;
+}
+
+/* 기본 스타일 */
+.hover-box {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.hover-text {
+  font-weight: 500;
+  font-size: 1.3rem; /* 기본 글씨 크기 */
+  transition: font-size 0.3s ease; /* 글씨 크기 전환 */
+  color: aliceblue;
+}
+
+.hover-content {
+  display: none; /* 처음엔 숨김 */
+  position: absolute; /* hover-box 내에서 위치 조정 */
+  top: 20px; /* 텍스트 아래에 나타나도록 조정 */
+  left: 110px;
+  background-color: #0000006d; /* 텍스트박스 배경색 */
+  padding: 10px;
+  border: 1px solid #ddd; /* 테두리 */
+  border-radius: 5px; /* 둥근 모서리 */
+  font-size: 14px;
+  width: 250px; /* 텍스트박스 너비 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  transition: opacity 0.3s ease; /* 투명도 전환 */
+}
+
+/* hover 시 스타일 */
+.hover-box:hover .hover-text {
+  font-size: 1.5rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box:hover .hover-content {
+  display: inline; /* hover 시 내용 표시 */
+  color: aliceblue;
+  font-weight: 500;
+  font-size: 1.5rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box:hover .hover-content11 {
+  display: inline; /* hover 시 내용 표시 */
+  color: aliceblue;
+  font-weight: 400;
+  font-size: 1.0rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box:hover .img-pin11 {
+  transform: scale(1.2, 1.2);
+}
+
+.img-pin2 {
+  margin: -750px 300px; /* 위쪽과 아래쪽 여백은 50px, 왼쪽 여백은 자동으로 설정하여 오른쪽으로 이동 */
+  filter: drop-shadow(5px 5px 2px rgba(39, 81, 54, 0.541));
+  transition: 0.4s;
+}
+
+.img-pin22 {
+  filter: drop-shadow(5px 5px 2px rgba(39, 81, 54, 0.541));
+  transition: 0.4s;
+}
+
+/* 기본 스타일 */
+.hover-box22 {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.hover-text22 {
+  font-weight: 500;
+  font-size: 1.3rem; /* 기본 글씨 크기 */
+  transition: font-size 0.3s ease; /* 글씨 크기 전환 */
+  color: aliceblue;
+}
+
+.hover-content2 {
+  display: none; /* 처음엔 숨김 */
+  position: absolute; /* hover-box 내에서 위치 조정 */
+  top: 170px; /* 텍스트 아래에 나타나도록 조정 */
+  left: 80px;
+  background-color: #0000006d; /* 텍스트박스 배경색 */
+  padding: 10px;
+  border: 1px solid #ddd; /* 테두리 */
+  border-radius: 5px; /* 둥근 모서리 */
+  font-size: 14px;
+  width: 280px; /* 텍스트박스 너비 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  transition: opacity 0.3s ease; /* 투명도 전환 */
+}
+
+/* hover 시 스타일 */
+.hover-box22:hover .hover-text22 {
+  font-size: 1.5rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box22:hover .hover-content2 {
+  display: inline; /* hover 시 내용 표시 */
+  color: aliceblue;
+  font-weight: 500;
+  font-size: 1.5rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box22:hover .hover-content22 {
+  display: inline; /* hover 시 내용 표시 */
+  color: aliceblue;
+  font-weight: 400;
+  font-size: 1.0rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box22:hover .img-pin22 {
+  transform: scale(1.2, 1.2);
+}
+
+.img-pin3 {
+  margin-left: 850px; /* 위쪽과 아래쪽 여백은 50px, 왼쪽 여백은 자동으로 설정하여 오른쪽으로 이동 */
+  margin-top: 900px;
+  filter: drop-shadow(5px 5px 2px rgba(39, 81, 54, 0.541));
+}
+
+.img-pin33 {
+  filter: drop-shadow(5px 5px 2px rgba(39, 81, 54, 0.541));
+  transition: 0.4s;
+}
+
+/* 기본 스타일 */
+.hover-box33 {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+.hover-text33 {
+  font-weight: 500;
+  font-size: 1.3rem; /* 기본 글씨 크기 */
+  transition: font-size 0.3s ease; /* 글씨 크기 전환 */
+  color: aliceblue;
+}
+
+.hover-content3 {
+  display: none; /* 처음엔 숨김 */
+  position: absolute; /* hover-box 내에서 위치 조정 */
+  top: -50px; /* 텍스트 아래에 나타나도록 조정 */
+  left: 100px;
+  background-color: #0000006d; /* 텍스트박스 배경색 */
+  padding: 10px;
+  border: 1px solid #ddd; /* 테두리 */
+  border-radius: 5px; /* 둥근 모서리 */
+  font-size: 14px;
+  width: 300px; /* 텍스트박스 너비 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  transition: opacity 0.3s ease; /* 투명도 전환 */
+}
+
+/* hover 시 스타일 */
+.hover-box33:hover .hover-text33 {
+  font-size: 1.5rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box33:hover .hover-content3 {
+  display: inline; /* hover 시 내용 표시 */
+  color: aliceblue;
+  font-weight: 500;
+  font-size: 1.5rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box33:hover .hover-content33 {
+  display: inline; /* hover 시 내용 표시 */
+  color: aliceblue;
+  font-weight: 400;
+  font-size: 1.0rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box33:hover .img-pin33 {
+  transform: scale(1.3, 1.3);
+}
+
+.img-pin4 {
+  margin-left: 1050px; /* 위쪽과 아래쪽 여백은 50px, 왼쪽 여백은 자동으로 설정하여 오른쪽으로 이동 */
+  margin-top: -400px;
+  filter: drop-shadow(5px 5px 2px rgba(39, 81, 54, 0.541));
+}
+
+.img-pin44 {
+  filter: drop-shadow(5px 5px 2px rgba(39, 81, 54, 0.541));
+  transition: 0.4s;
+}
+
+/* 기본 스타일 */
+.hover-box44 {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+.hover-text44 {
+  font-weight: 500;
+  font-size: 1.3rem; /* 기본 글씨 크기 */
+  transition: font-size 0.3s ease; /* 글씨 크기 전환 */
+  color: aliceblue;
+}
+
+.hover-content4 {
+  display: none; /* 처음엔 숨김 */
+  position: absolute; /* hover-box 내에서 위치 조정 */
+  top: -70px; /* 텍스트 아래에 나타나도록 조정 */
+  left: 130px;
+  background-color: #0000006d; /* 텍스트박스 배경색 */
+  padding: 10px;
+  border: 1px solid #ddd; /* 테두리 */
+  border-radius: 5px; /* 둥근 모서리 */
+  font-size: 14px;
+  width: 270px; /* 텍스트박스 너비 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  transition: opacity 0.3s ease; /* 투명도 전환 */
+}
+
+/* hover 시 스타일 */
+.hover-box44:hover .hover-text44 {
+  font-size: 1.5rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box44:hover .hover-content4 {
+  display: inline; /* hover 시 내용 표시 */
+  color: aliceblue;
+  font-weight: 500;
+  font-size: 1.5rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box44:hover .hover-content44 {
+  display: inline; /* hover 시 내용 표시 */
+  color: aliceblue;
+  font-weight: 400;
+  font-size: 1.0rem; /* 글씨가 커지도록 설정 */
+}
+
+.hover-box44:hover .img-pin44 {
+  transform: scale(1.3, 1.3);
+}
+
+
+
+.logo-text6{
+  margin-top: 20px; 
+  color: crimson;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.3rem; /* 기본 글씨 크기 */
+}
+
+.logo-text7{
+  margin-left:  90px;
+  text-align:left; }
+
+.logo-text8{
+  margin-right:  90px;
+  text-align:right; }
+  
+
+.logo-text9{
+  margin-top: 70px 0px 0px; 
+  text-align: center;
+}
+
+.fintext {
+  background-color: rgb(165, 177, 155); /* 원하는 색상으로 변경 */
+  margin: 0;
+  padding: 0;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 50px;
+  margin: -70px 0px;
+  color:black ;
+  background-color: rgb(165, 177, 155);
+}
+
+.contact-info, .class-info {
+  flex: 1; 
+  text-align: center; 
+}
+
+
+
+header div{height: 100%;}
+header p{padding-top:100%;}
+
+#pictureframe {
+  z-index: 2;
+  position:relative;
+  width:200px;
+  margin-top:-200px;
+  -webkit-animation: fly 3.5s infinite linear;
+  animation: fly 3.5s infinite linear;
+}
+  
+#shadow {
+position:absolute;
+width: 0px; height: 0px; 
+top: 140px; left: 00px;
+border-width: 10px;
+border-left-width:50px;
+border-top-width:0px;
+border-right-width: 40px;
+border-color: transparent;
+border-bottom-color: rgba(0, 0, 0, 0.6);
+border-style:solid;
+-webkit-filter: blur(5px);
+filter: blur(5px);
+}
+  
+#shadow:after {
+  content: " ";
+  position:absolute;
+  width: 00px; height: 0px; 
+  top: 10px; left: -50px;
+  border-width: 10px;
+  border-left-width:50px;
+  border-bottom-width:0px;
+  border-right-width: 40px;
+  border-color: transparent;
+  border-top-color: rgba(6, 6, 6, 0.6);
+  border-style:solid;
+}
+  
+#bird div {
+  position:absolute;
+}
+  
+#bird { 
+  position:absolute;
+  -webkit-animation: bob 0.7s infinite cubic-bezier(0.7, 0.7, 0.1, 0.4);
+  animation: bob 0.7s infinite cubic-bezier(0.7, 0.7, 0.1, 0.4);
+}
+  
+#body1,#body2,#wing-l,#wing-r {
+  width: 0px; height: 0px;
+  border-color: transparent;
+  border-style: solid;
+}
+#body1 {
+  border-width: 15px; 
+  border-left-width:25px;
+  border-top-width:15px;
+  border-right-width: 55px;
+  border-top-color: #959595;
+}
+  
+#body2 { 
+  left: 50px; bottom: 0px;
+  border-width: 10px; 
+  border-left-width:5px;
+  border-top-width:0px;
+  border-right-width: 15px;
+  border-bottom-color: #cccccc;
+  }
+  
+#wing-l {
+  left: 22px; bottom: 0px; 
+  border-width: 60px; 
+  border-left-width:20px;
+  border-top-width:0px;
+  border-right-width: 6px;
+  border-bottom-color: #a1a1a1;
+  -webkit-animation: flap-l 0.7s infinite; 
+  animation: flap-l 0.7s infinite;
+}
+  
+#wing-r {
+  left: 22px; top:0px;
+  border-width: 60px; 
+  border-left-width:20px;
+  border-bottom-width:0px;
+  border-right-width: 6px;
+  border-top-color: #cccccc;
+  -webkit-animation: flap-r 0.7s infinite; 
+  animation: flap-r 0.7s infinite;
+
+}
+
+
+@-webkit-keyframes flap-r {
+  0%,10%   { 	border-top-width: 60px; }
+  40%,60%  { 	border-top-width: 10px; }
+  100%     { 	border-top-width: 60px; }
+}
+@keyframes flap-r {
+  0%, 10%   { border-top-width: 60px; }
+  40%, 60%  { border-top-width: 10px; }
+  100%      { border-top-width: 60px; }
+}
+
+@-webkit-keyframes flap-l {
+  0%       { 	border-bottom-width: 0px; }
+  40%,60%  { 	border-bottom-width: 40px; }
+  100%     { 	border-bottom-width: 0px; }
+}
+@keyframes flap-l {
+  0%        { border-bottom-width: 0px; }
+  40%, 60%  { border-bottom-width: 40px; }
+  100%      { border-bottom-width: 0px; }
+}
+
+  
+@-webkit-keyframes fly {
+  0%   { 	left: 0%; top:100px;-webkit-transform:scale3d(0.5,0.5,1) }
+  100% { 	left: 100%; top:100px; -webkit-transform:scale3d(1,1,1) }
+}
+@keyframes fly {
+  0%   { left: 0%; top: 100px; transform: scale3d(0.5, 0.5, 1); }
+  100% { left: 100%; top: 100px; transform: scale3d(1, 1, 1); }
+}
+
+@-webkit-keyframes bob {
+  0%   { 	top: 25px; }
+  50%   { 	top: 0px; }
+  100% { 	top: 25px; }
+}
+@keyframes bob {
+  0%   { top: 25px; }
+  50%  { top: 0px; }
+  100% { top: 25px; }
+}
+
+.moving-image {
+  width: 300px; /* 이미지 크기 설정 */
+  position: absolute;
+  top: 17%; /* 화면 중간에 위치 */
+  left: 0; /* 화면 왼쪽에서 시작 */
+  transform: translateY(-50%); /* 세로 중앙 정렬 */
+  animation: moveRight 10s infinite; /* 애니메이션 적용 */
+  z-index: 9999;
+}
+
+/* 이미지를 오른쪽으로 이동시키는 애니메이션 */
+@keyframes moveRight {
+  0% {
+    left: 30px; /* 시작 위치 */
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 1000px; /* 화면 오른쪽 끝 */
+    opacity: 0;
+  }
+}
+
+.moving-image1 {
+  width: 300px; /* 이미지 크기 설정 */
+  position: absolute;
+  top: 80%; /* 화면 중간에 위치 */
+  left: 0; /* 화면 왼쪽에서 시작 */
+  transform: translateY(-50%); /* 세로 중앙 정렬 */
+  animation: moveRight1 10s infinite; /* 애니메이션 적용 */
+  z-index: 9999;
+}
+
+/* 이미지를 오른쪽으로 이동시키는 애니메이션 */
+@keyframes moveRight1 {
+  0% {
+    left: 30px; /* 시작 위치 */
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 1200px; /* 화면 오른쪽 끝 */
+    opacity: 0;
+  }
+}
+
+.moving-image2 {
+  width: 200px; /* 이미지 크기 설정 */
+  position: absolute;
+  top: 70%; /* 화면 중간에 위치 */
+  left: 0; /* 화면 왼쪽에서 시작 */
+  transform: translateY(-50%); /* 세로 중앙 정렬 */
+  animation: moveRight2 9s infinite; /* 애니메이션 적용 */
+  z-index: 9999;
+}
+
+/* 이미지를 오른쪽으로 이동시키는 애니메이션 */
+@keyframes moveRight2 {
+  0% {
+    left: 30px; /* 시작 위치 */
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 1200px; /* 화면 오른쪽 끝 */
+    opacity: 0;
+  }
+}
+
+.moving-image3 {
+  width: 200px; /* 이미지 크기 설정 */
+  position: absolute;
+  top: 50%; /* 화면 중간에 위치 */
+  left: 0; /* 화면 왼쪽에서 시작 */
+  transform: translateY(-50%); /* 세로 중앙 정렬 */
+  animation: moveRight3 8s infinite; /* 애니메이션 적용 */
+  z-index: 9999;
+}
+
+/* 이미지를 오른쪽으로 이동시키는 애니메이션 */
+@keyframes moveRight3 {
+  0% {
+    left: 30px; /* 시작 위치 */
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 1200px; /* 화면 오른쪽 끝 */
+    opacity: 0;
+  }
+}
+
+.moving-image4 {
+  width: 500px; /* 이미지 크기 설정 */
+  position: absolute;
+  top: 50%; /* 화면 중간에 위치 */
+  left: 0; /* 화면 왼쪽에서 시작 */
+  transform: translateY(-50%); /* 세로 중앙 정렬 */
+  animation: moveRight4 8s infinite; /* 애니메이션 적용 */
+  z-index: 9999;
+}
+
+/* 이미지를 오른쪽으로 이동시키는 애니메이션 */
+@keyframes moveRight4 {
+  0% {
+    left: 30px; /* 시작 위치 */
+    top: 600px;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    left: 1200px; /* 화면 오른쪽 끝 */
+    top: 100px;
+    opacity: 0;
+  }
+}
